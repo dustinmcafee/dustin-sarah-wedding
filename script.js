@@ -108,7 +108,6 @@ rsvpForm.addEventListener('submit', async (e) => {
         phone: document.getElementById('phone').value,
         attending: document.querySelector('input[name="attending"]:checked').value,
         numGuests: document.getElementById('num-guests').value || null,
-        dietaryRestrictions: document.getElementById('dietary-restrictions').value || null,
         message: document.getElementById('message').value,
         timestamp: new Date().toISOString()
     };
@@ -212,7 +211,6 @@ async function sendEmailNotification(data) {
                     <p><strong>Attending:</strong> ${data.attending === 'yes' ? 'Yes' : 'No'}</p>
                     ${data.attending === 'yes' ? `
                         <p><strong>Number of Guests:</strong> ${data.numGuests}</p>
-                        <p><strong>Dietary Restrictions:</strong> ${data.dietaryRestrictions || 'None'}</p>
                     ` : ''}
                     <p><strong>Message:</strong> ${data.message || 'N/A'}</p>
                     <p><strong>Submitted:</strong> ${new Date(data.timestamp).toLocaleString()}</p>
