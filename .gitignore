@@ -1,0 +1,31 @@
+# Firebase config (if you want to keep it private)
+# Uncomment the line below if you want to hide your Firebase config
+# script.js
+
+# IMPORTANT: Contains app password - delete after Firebase setup!
+YOUR_FIREBASE_CONFIG.txt
+
+# Node modules (if you add build tools later)
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Firebase cache
+.firebase/
+firebase-debug.log

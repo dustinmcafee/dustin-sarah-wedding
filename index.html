@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dustin & Sarah's Wedding</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">D & S</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#details">Details</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#rsvp">RSVP</a></li>
+                <li><a href="#registry">Registry</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="couple-names">Dustin & Sarah</h1>
+            <div class="wedding-date">Are Getting Married</div>
+            <div class="save-date">Save the Date</div>
+            <div class="date-detail">[Your Wedding Date]</div>
+        </div>
+        <div class="scroll-indicator">
+            <span>↓</span>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="story-section">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="story-content">
+                <p>
+                    Every love story is beautiful, but ours is our favorite. We're excited to share this special day with our family and friends as we begin our journey together as husband and wife.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wedding Details Section -->
+    <section id="details" class="details-section">
+        <div class="container">
+            <h2>Wedding Details</h2>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon">📅</div>
+                    <h3>Date</h3>
+                    <p>[Your Wedding Date]</p>
+                    <p class="detail-time">[Time]</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">⛪</div>
+                    <h3>Ceremony</h3>
+                    <p>[Ceremony Venue Name]</p>
+                    <p class="detail-address">[Address]</p>
+                    <a href="#" class="directions-link">Get Directions →</a>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">🎉</div>
+                    <h3>Reception</h3>
+                    <p>[Reception Venue Name]</p>
+                    <p class="detail-address">[Address]</p>
+                    <a href="#" class="directions-link">Get Directions →</a>
+                </div>
+            </div>
+
+            <div class="schedule">
+                <h3>Schedule of Events</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-time">[Time]</div>
+                        <div class="timeline-content">
+                            <h4>Ceremony</h4>
+                            <p>Join us as we exchange our vows</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">[Time]</div>
+                        <div class="timeline-content">
+                            <h4>Cocktail Hour</h4>
+                            <p>Enjoy drinks and hors d'oeuvres</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-time">[Time]</div>
+                        <div class="timeline-content">
+                            <h4>Reception</h4>
+                            <p>Dinner, dancing, and celebration</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2>Our Moments</h2>
+            <div class="gallery-grid">
+                <!-- Placeholder images - replace with your own -->
+                <div class="gallery-item" data-index="0">
+                    <img src="images/photo1.jpg" alt="Dustin and Sarah" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="1">
+                    <img src="images/photo2.jpg" alt="Dustin and Sarah" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="2">
+                    <img src="images/photo3.jpg" alt="Dustin and Sarah" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="3">
+                    <img src="images/photo4.jpg" alt="Dustin and Sarah" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="4">
+                    <img src="images/photo5.jpg" alt="Dustin and Sarah" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="5">
+                    <img src="images/photo6.jpg" alt="Dustin and Sarah" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox for Gallery -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div class="lightbox-nav">
+            <button class="lightbox-prev">‹</button>
+            <button class="lightbox-next">›</button>
+        </div>
+    </div>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="rsvp-section">
+        <div class="container">
+            <h2>RSVP</h2>
+            <p class="rsvp-intro">We can't wait to celebrate with you! Please let us know if you'll be able to join us.</p>
+
+            <form id="rsvp-form" class="rsvp-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name">First Name *</label>
+                        <input type="text" id="first-name" name="first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name *</label>
+                        <input type="text" id="last-name" name="last-name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label>Will you be attending? *</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="attending" value="yes" required>
+                            <span>Joyfully Accepts</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="attending" value="no">
+                            <span>Regretfully Declines</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="guest-details" class="guest-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="num-guests">Number of Guests *</label>
+                        <select id="num-guests" name="num-guests">
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="meal-preference">Meal Preference</label>
+                        <select id="meal-preference" name="meal-preference">
+                            <option value="">Select an option</option>
+                            <option value="chicken">Chicken</option>
+                            <option value="beef">Beef</option>
+                            <option value="fish">Fish</option>
+                            <option value="vegetarian">Vegetarian</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dietary-restrictions">Dietary Restrictions or Allergies</label>
+                        <textarea id="dietary-restrictions" name="dietary-restrictions" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message to the Couple</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Share your well wishes or a favorite memory..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send RSVP</button>
+
+                <div id="form-message" class="form-message"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Registry Section -->
+    <section id="registry" class="registry-section">
+        <div class="container">
+            <h2>Registry</h2>
+            <p class="registry-intro">Your presence at our wedding is the greatest gift of all. However, if you wish to honor us with a gift, we've registered at the following stores:</p>
+
+            <div class="registry-grid">
+                <a href="#" class="registry-card" target="_blank" rel="noopener">
+                    <div class="registry-logo">🎁</div>
+                    <h3>Amazon</h3>
+                    <span class="registry-link">View Registry →</span>
+                </a>
+                <a href="#" class="registry-card" target="_blank" rel="noopener">
+                    <div class="registry-logo">🏠</div>
+                    <h3>Target</h3>
+                    <span class="registry-link">View Registry →</span>
+                </a>
+                <a href="#" class="registry-card" target="_blank" rel="noopener">
+                    <div class="registry-logo">🍴</div>
+                    <h3>Crate & Barrel</h3>
+                    <span class="registry-link">View Registry →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">We can't wait to celebrate with you!</p>
+            <p class="footer-names">Dustin & Sarah</p>
+            <p class="footer-date">[Your Wedding Date]</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
