@@ -199,7 +199,7 @@ async function sendEmailNotification(data) {
     if (!db) return;
 
     try {
-        // This will trigger a Cloud Function to send email
+        // Send notification to you
         await db.collection('mail').add({
             to: 'dustin.mcafee@my.maryvillecollege.edu', // Your notification email
             message: {
@@ -216,6 +216,36 @@ async function sendEmailNotification(data) {
                     ` : ''}
                     <p><strong>Message:</strong> ${data.message || 'N/A'}</p>
                     <p><strong>Submitted:</strong> ${new Date(data.timestamp).toLocaleString()}</p>
+                `
+            }
+        });
+
+        // Send confirmation to guest
+        const guestMessage = data.attending === 'yes'
+            ? `
+                <p>We're thrilled that you'll be joining us on our special day!</p>
+                <p><strong>Number of guests:</strong> ${data.numGuests}</p>
+                <p><strong>Date:</strong> April 2, 2026 at 4:00 PM</p>
+                <p><strong>Location:</strong> Norris Dam Tea Room, Norris Cir, Andersonville, TN 37705</p>
+                <p>We can't wait to celebrate with you!</p>
+            `
+            : `
+                <p>Thank you for letting us know. We're sorry you can't make it, but we appreciate your response.</p>
+                <p>We hope to see you soon!</p>
+            `;
+
+        await db.collection('mail').add({
+            to: data.email,
+            message: {
+                subject: data.attending === 'yes'
+                    ? 'RSVP Confirmed - Dustin & Sarah\'s Wedding'
+                    : 'RSVP Received - Dustin & Sarah\'s Wedding',
+                html: `
+                    <h2>Thank you for your RSVP!</h2>
+                    <p>Hi ${data.firstName},</p>
+                    ${guestMessage}
+                    <p>If you have any questions, please don't hesitate to reach out.</p>
+                    <p>Best wishes,<br>Dustin & Sarah</p>
                 `
             }
         });
