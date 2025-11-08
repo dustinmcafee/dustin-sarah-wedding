@@ -234,6 +234,8 @@ async function sendEmailNotification(data) {
 
         await db.collection('mail').add({
             to: data.email,
+            from: 'dustin.mcafee@my.maryvillecollege.edu',
+            replyTo: 'dustin.mcafee@my.maryvillecollege.edu',
             message: {
                 subject: data.attending === 'yes'
                     ? 'RSVP Confirmed - Dustin & Sarah\'s Wedding'
