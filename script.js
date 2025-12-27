@@ -84,14 +84,18 @@ const attendingRadios = document.querySelectorAll('input[name="attending"]');
 const guestDetails = document.getElementById('guest-details');
 const formMessage = document.getElementById('form-message');
 
-// Show/hide guest details based on attendance
+// Show/hide guest details and allergies based on attendance
+const allergiesSection = document.getElementById('allergies-section');
+
 attendingRadios.forEach(radio => {
     radio.addEventListener('change', (e) => {
         if (e.target.value === 'yes') {
             guestDetails.style.display = 'block';
+            allergiesSection.style.display = 'block';
             document.getElementById('num-guests').required = true;
         } else {
             guestDetails.style.display = 'none';
+            allergiesSection.style.display = 'none';
             document.getElementById('num-guests').required = false;
         }
     });
@@ -108,6 +112,7 @@ rsvpForm.addEventListener('submit', async (e) => {
         phone: document.getElementById('phone').value,
         attending: document.querySelector('input[name="attending"]:checked').value,
         numGuests: document.getElementById('num-guests').value || null,
+        allergies: document.getElementById('allergies').value || null,
         message: document.getElementById('message').value,
         timestamp: new Date().toISOString()
     };
@@ -122,6 +127,7 @@ rsvpForm.addEventListener('submit', async (e) => {
         // Reset form
         rsvpForm.reset();
         guestDetails.style.display = 'none';
+        allergiesSection.style.display = 'none';
 
     } catch (error) {
         console.error('Error submitting RSVP:', error);
@@ -211,6 +217,7 @@ async function sendEmailNotification(data) {
                     <p><strong>Attending:</strong> ${data.attending === 'yes' ? 'Yes' : 'No'}</p>
                     ${data.attending === 'yes' ? `
                         <p><strong>Number of Guests:</strong> ${data.numGuests}</p>
+                        <p><strong>Dietary Restrictions/Allergies:</strong> ${data.allergies || 'None specified'}</p>
                     ` : ''}
                     <p><strong>Message:</strong> ${data.message || 'N/A'}</p>
                     <p><strong>Submitted:</strong> ${new Date(data.timestamp).toLocaleString()}</p>
