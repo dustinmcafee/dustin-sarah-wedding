@@ -201,9 +201,20 @@
                     <div class="form-group">
                         <label for="num-guests">Number of Guests *</label>
                         <select id="num-guests" name="num-guests">
-                            <option value="1">1 Guest</option>
-                            <option value="2">2 Guests</option>
+                            <option value="1">Just me</option>
+                            <option value="2">Me + 1 guest</option>
                         </select>
+                    </div>
+                    <div id="additional-guest" class="form-group" style="display: none;">
+                        <label>Additional Guest Name *</label>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="guest-first-name" name="guest-first-name" placeholder="First name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="guest-last-name" name="guest-last-name" placeholder="Last name">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
