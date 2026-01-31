@@ -218,6 +218,7 @@
         }
 
         input[type="text"],
+        input[type="email"],
         select {
             width: 100%;
             padding: 15px;
@@ -231,6 +232,7 @@
         }
 
         input[type="text"]:focus,
+        input[type="email"]:focus,
         select:focus {
             outline: none;
             border-color: #00ffff;
@@ -724,6 +726,43 @@
                     Then you are not allowed to attend.
                 </div>
 
+                <!-- Curt Easter Egg Questions -->
+                <div id="curt-q1" class="tyler-question">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Have you checked the weather? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="curt-q1" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="curt-q1" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="curt-q2" class="tyler-question">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>If it's too wimdy, will you still come? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="curt-q2" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="curt-q2" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="curt-denied" class="tyler-denied">
+                    Fine, don't come, penis-face.
+                </div>
+
                 <button type="submit" class="submit-btn">Submit</button>
 
                 <div id="form-message" class="form-message"></div>
@@ -921,6 +960,67 @@
             radio.addEventListener('change', updateSubmitButtonAll);
         });
 
+        // Curt Mandel Easter Egg
+        const curtQ1 = document.getElementById('curt-q1');
+        const curtQ2 = document.getElementById('curt-q2');
+        const curtDenied = document.getElementById('curt-denied');
+        let curtDetected = false;
+
+        function checkForCurt() {
+            const firstName = document.getElementById('first-name').value.trim().toLowerCase();
+            const lastName = document.getElementById('last-name').value.trim().toLowerCase();
+            const fullName = `${firstName} ${lastName}`;
+
+            // Check main name
+            if (fullName.includes('curt') && fullName.includes('mandel')) {
+                return true;
+            }
+
+            // Check additional guest names
+            const guestInputs = guestNamesContainer.querySelectorAll('input[type="text"]');
+            for (const input of guestInputs) {
+                if (input.value.toLowerCase().includes('curt') && input.value.toLowerCase().includes('mandel')) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function updateCurtState() {
+            const isCurt = checkForCurt();
+
+            if (isCurt && !curtDetected) {
+                curtDetected = true;
+                curtQ1.style.display = 'block';
+                curtQ2.style.display = 'none';
+                curtDenied.style.display = 'none';
+                // Reset Curt questions
+                document.querySelectorAll('input[name="curt-q1"]').forEach(r => r.checked = false);
+                document.querySelectorAll('input[name="curt-q2"]').forEach(r => r.checked = false);
+            } else if (!isCurt && curtDetected) {
+                curtDetected = false;
+                curtQ1.style.display = 'none';
+                curtQ2.style.display = 'none';
+                curtDenied.style.display = 'none';
+            }
+
+            updateSubmitButtonAll();
+        }
+
+        // Listen for Curt Q1 answer - either yes or no proceeds to Q2
+        document.querySelectorAll('input[name="curt-q1"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                curtQ2.style.display = 'block';
+                updateSubmitButtonAll();
+            });
+        });
+
+        // Listen for Curt Q2 answer
+        document.querySelectorAll('input[name="curt-q2"]').forEach(radio => {
+            radio.addEventListener('change', updateSubmitButtonAll);
+        });
+
         // Combined submit button update for all easter eggs
         function updateSubmitButtonAll() {
             let canSubmit = true;
@@ -955,10 +1055,27 @@
                 }
             }
 
+            // Check Curt
+            if (curtDetected) {
+                const q1Answer = document.querySelector('input[name="curt-q1"]:checked')?.value;
+                const q2Answer = document.querySelector('input[name="curt-q2"]:checked')?.value;
+
+                // Q1 can be yes or no, just needs to be answered
+                if (!q1Answer) {
+                    canSubmit = false;
+                } else if (!q2Answer) {
+                    canSubmit = false;
+                } else if (q2Answer === 'no') {
+                    canSubmit = false;
+                    showDenied = 'curt';
+                }
+            }
+
             // Update UI
             tylerDenied.style.display = showDenied === 'tyler' ? 'block' : 'none';
             dakotaDeniedQ1.style.display = showDenied === 'dakota-q1' ? 'block' : 'none';
             dakotaDeniedQ2.style.display = showDenied === 'dakota-q2' ? 'block' : 'none';
+            curtDenied.style.display = showDenied === 'curt' ? 'block' : 'none';
 
             if (showDenied) {
                 submitBtn.style.display = 'none';
@@ -972,6 +1089,7 @@
         function updateAllEasterEggs() {
             updateTylerState();
             updateDakotaState();
+            updateCurtState();
         }
 
         document.getElementById('first-name').addEventListener('input', updateAllEasterEggs);
@@ -981,7 +1099,7 @@
         guestNamesContainer.addEventListener('input', updateAllEasterEggs);
 
         // Send email notifications
-        async function sendAfterpartyEmails(data, isTyler, isDakota) {
+        async function sendAfterpartyEmails(data, isTyler, isDakota, isCurt) {
             try {
                 // Build guest list string
                 let guestList = data.firstName + ' ' + data.lastName;
@@ -993,6 +1111,7 @@
                 let easterEggNote = '';
                 if (isTyler) easterEggNote += '<p><strong>🌈 Easter Egg:</strong> Confirmed sexy internet boy enthusiast</p>';
                 if (isDakota) easterEggNote += '<p><strong>🍑 Easter Egg:</strong> Confirmed spoonless ass eater</p>';
+                if (isCurt) easterEggNote += '<p><strong>🌬️ Easter Egg:</strong> Checked the weather, wimdy-proof</p>';
 
                 // Send notification to you
                 await db.collection('mail').add({
@@ -1028,7 +1147,8 @@
                                     ${easterEggNote ? `
                                     <div style="background: rgba(255,0,128,0.2); border: 1px solid #ff0080; border-radius: 6px; padding: 15px; margin-bottom: 20px;">
                                         ${isTyler ? '<p style="color: #ff0080; margin: 0 0 5px 0; font-size: 14px;">🌈 Confirmed sexy internet boy enthusiast</p>' : ''}
-                                        ${isDakota ? '<p style="color: #ff0080; margin: 0; font-size: 14px;">🍑 Confirmed spoonless ass eater</p>' : ''}
+                                        ${isDakota ? '<p style="color: #ff0080; margin: 0 0 5px 0; font-size: 14px;">🍑 Confirmed spoonless ass eater</p>' : ''}
+                                        ${isCurt ? '<p style="color: #ff0080; margin: 0; font-size: 14px;">🌬️ Checked the weather, wimdy-proof</p>' : ''}
                                     </div>
                                     ` : ''}
 
@@ -1144,12 +1264,16 @@
             if (dakotaDetected) {
                 data.confirmedSpoonlessAssEater = true;
             }
+            if (curtDetected) {
+                data.checkedTheWeather = true;
+                data.wimdyProof = true;
+            }
 
             try {
                 await db.collection('afterparty-rsvps').add(data);
 
                 // Send email notifications
-                await sendAfterpartyEmails(data, tylerDetected, dakotaDetected);
+                await sendAfterpartyEmails(data, tylerDetected, dakotaDetected, curtDetected);
 
                 let successMsg = attending === 'yes' ? 'See you on the dance floor.' : 'No worries. Thanks for letting us know.';
                 if (tylerDetected && attending === 'yes') {
@@ -1157,6 +1281,9 @@
                 }
                 if (dakotaDetected && attending === 'yes') {
                     successMsg = 'See you on the dance floor. Bring your appetite.';
+                }
+                if (curtDetected && attending === 'yes') {
+                    successMsg = 'See you on the dance floor. Rain or shine... or wimd.';
                 }
                 formMessage.textContent = successMsg;
                 formMessage.className = 'form-message success';
@@ -1175,6 +1302,10 @@
                 dakotaQ2.style.display = 'none';
                 dakotaDeniedQ1.style.display = 'none';
                 dakotaDeniedQ2.style.display = 'none';
+                curtDetected = false;
+                curtQ1.style.display = 'none';
+                curtQ2.style.display = 'none';
+                curtDenied.style.display = 'none';
 
             } catch (error) {
                 console.error('Error:', error);
