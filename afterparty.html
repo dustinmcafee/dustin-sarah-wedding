@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>??? | Top Secret</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(128, 0, 255, 0.1) 0%, transparent 60%),
+                #0a0a0f;
+        }
+
+        /* Scanline effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .secret-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 2px solid #ff0080;
+            color: #ff0080;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 128, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(255, 0, 128, 0.8); }
+        }
+
+        .main-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff0080, #00ffff, #ff0080);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease infinite;
+            text-shadow: 0 0 40px rgba(255, 0, 128, 0.5);
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #00ffff;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+        }
+
+        /* Info section */
+        .info-section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .info-section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #ff0080;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 0, 128, 0.3);
+            border-radius: 4px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .info-box p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .warning {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255, 0, 128, 0.1);
+            border: 1px solid #ff0080;
+            color: #ff0080;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            padding: 60px 20px;
+        }
+
+        .rsvp-section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #00ffff;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .rsvp-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 500px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        label {
+            display: block;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .radio-label:hover {
+            border-color: #ff0080;
+        }
+
+        .radio-label input {
+            display: none;
+        }
+
+        .radio-label input:checked + span {
+            color: #00ffff;
+        }
+
+        .radio-label:has(input:checked) {
+            border-color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .radio-label span {
+            font-size: 1rem;
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .guest-details {
+            padding: 20px;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-top: -10px;
+            margin-bottom: 25px;
+        }
+
+        .guest-names {
+            margin-top: 20px;
+        }
+
+        .guest-name-field {
+            margin-bottom: 15px;
+        }
+
+        .guest-name-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .guest-name-field label {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Tyler Easter Egg */
+        .tyler-question {
+            display: none;
+            padding: 25px;
+            margin-bottom: 25px;
+            background: rgba(255, 0, 80, 0.1);
+            border: 2px solid #ff0050;
+            border-radius: 4px;
+            animation: tyler-glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes tyler-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 80, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 80, 0.6); }
+        }
+
+        .tyler-question label {
+            color: #ff0050;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .tyler-question .radio-group {
+            justify-content: center;
+        }
+
+        .tyler-question .radio-label {
+            border-color: rgba(255, 0, 80, 0.4);
+        }
+
+        .tyler-question .radio-label:hover {
+            border-color: #ff0050;
+        }
+
+        .tyler-question .radio-label:has(input:checked) {
+            border-color: #ff0050;
+            box-shadow: 0 0 15px rgba(255, 0, 80, 0.5);
+        }
+
+        .tyler-question .radio-label input:checked + span {
+            color: #ff0050;
+        }
+
+        .tyler-denied {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #ff0050;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #ff0080, #8000ff);
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 0, 128, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-message {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(0, 255, 128, 0.1);
+            border: 1px solid #00ff80;
+            color: #00ff80;
+        }
+
+        .form-message.error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0040;
+            color: #ff0040;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 60px 20px;
+        }
+
+        .timeline-section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #8000ff;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(128, 0, 255, 0.5);
+        }
+
+        .timeline {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #ff0080, #8000ff, #00ffff);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            padding-bottom: 40px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background: #0a0a0f;
+            border: 2px solid #ff0080;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.5);
+        }
+
+        .timeline-item:nth-child(2)::before {
+            border-color: #8000ff;
+            box-shadow: 0 0 15px rgba(128, 0, 255, 0.5);
+        }
+
+        .timeline-item:nth-child(3)::before {
+            border-color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .timeline-item:nth-child(4)::before {
+            border-color: #00ff80;
+            box-shadow: 0 0 15px rgba(0, 255, 128, 0.5);
+        }
+
+        .timeline-time {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: #ff0080;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-item:nth-child(2) .timeline-time {
+            color: #8000ff;
+        }
+
+        .timeline-item:nth-child(3) .timeline-time {
+            color: #00ffff;
+        }
+
+        .timeline-item:nth-child(4) .timeline-time {
+            color: #00ff80;
+        }
+
+        .timeline-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-desc {
+            font-size: 1rem;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #444;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="scanlines"></div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="secret-badge">Top Secret</div>
+        <h1 class="main-title">After<br>Party</h1>
+        <p class="subtitle">The Rave Continues</p>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>You're Invited</h2>
+            <div class="info-box">
+                <p>
+                    After the reception ends and guests head home, the <strong style="color: #00ffff;">real party begins</strong>.
+                </p>
+                <p>
+                    You've been selected to join us for a secret after-party. When we start asking people to leave, you're on the <strong style="color: #ff0080;">"clean-up crew"</strong> - that's your cover to stay behind.
+                </p>
+                <p style="color: #888; font-size: 1rem;">
+                    Once everyone's gone, we drop the bass.
+                </p>
+            </div>
+            <div class="warning">
+                Keep this secret
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2>The Schedule</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">Reception Ends</div>
+                    <div class="timeline-title">Guests Leave</div>
+                    <div class="timeline-desc">We'll start ushering people out. You stay put - you're on "clean-up crew."</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">~30 Minutes</div>
+                    <div class="timeline-title">"Clean-Up"</div>
+                    <div class="timeline-desc">Look busy while the normies clear out. Maybe move a chair or two.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">Until 11:00 PM</div>
+                    <div class="timeline-title">The Rave</div>
+                    <div class="timeline-desc">Lights down. Bass up. This is why you're really here.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">11:00 PM - 12:00 AM</div>
+                    <div class="timeline-title">Actual Clean-Up</div>
+                    <div class="timeline-desc">Time to actually clean up. Many hands make light work.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section class="rsvp-section">
+        <div class="container">
+            <h2>Are You In?</h2>
+
+            <form id="afterparty-form" class="rsvp-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name">First Name *</label>
+                        <input type="text" id="first-name" name="first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name *</label>
+                        <input type="text" id="last-name" name="last-name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Can you stay? *</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="attending" value="yes" required>
+                            <span>I'm in</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="attending" value="no">
+                            <span>Can't make it</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="guest-details" class="guest-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="num-guests">Bringing anyone else? *</label>
+                        <select id="num-guests" name="num-guests">
+                            <option value="0">Just me</option>
+                            <option value="1">+1 guest</option>
+                            <option value="2">+2 guests</option>
+                            <option value="3">+3 guests</option>
+                        </select>
+                    </div>
+                    <div id="guest-names" class="guest-names">
+                        <!-- Guest name fields will be added dynamically -->
+                    </div>
+                </div>
+
+                <!-- Tyler Easter Egg Questions -->
+                <div id="tyler-q1" class="tyler-question">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Is this the same Tyler Davis that likes talking to sexy boys on the internet? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="tyler-q1" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tyler-q1" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tyler-q2" class="tyler-question">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>And doing other gay stuff to sexy internet boys? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="tyler-q2" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="tyler-q2" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tyler-denied" class="tyler-denied">
+                    Access denied. Nice try, imposter.
+                </div>
+
+                <!-- Dakota Easter Egg Questions -->
+                <div id="dakota-q1" class="tyler-question">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Is this the same Dakota McAfee that likes to eat ass without a spoon? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="dakota-q1" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="dakota-q1" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dakota-q2" class="tyler-question">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Are you open to eat some ass at this party? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="dakota-q2" value="yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="dakota-q2" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dakota-denied-q1" class="tyler-denied">
+                    Access denied. Nice try, imposter.
+                </div>
+
+                <div id="dakota-denied-q2" class="tyler-denied">
+                    Then you are not allowed to attend.
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+
+                <div id="form-message" class="form-message"></div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>D & S // 04.02.26</p>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAU7WSwAKqLL6REJvGXhaMegk7zIHGMG3s",
+            authDomain: "dustin-sarah-wedding.firebaseapp.com",
+            projectId: "dustin-sarah-wedding",
+            storageBucket: "dustin-sarah-wedding.firebasestorage.app",
+            messagingSenderId: "1098321374837",
+            appId: "1:1098321374837:web:1b2c3d4e5f6a7b8c9d0e1f"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Show/hide guest count based on attendance
+        const attendingRadios = document.querySelectorAll('input[name="attending"]');
+        const guestDetails = document.getElementById('guest-details');
+        const numGuestsSelect = document.getElementById('num-guests');
+        const guestNamesContainer = document.getElementById('guest-names');
+
+        function updateGuestNameFields() {
+            const count = parseInt(numGuestsSelect.value);
+            guestNamesContainer.innerHTML = '';
+
+            for (let i = 1; i <= count; i++) {
+                const field = document.createElement('div');
+                field.className = 'guest-name-field';
+                field.innerHTML = `
+                    <label for="guest-${i}">Guest #${i} Name *</label>
+                    <input type="text" id="guest-${i}" name="guest-${i}" required placeholder="Full name">
+                `;
+                guestNamesContainer.appendChild(field);
+            }
+        }
+
+        attendingRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'yes') {
+                    guestDetails.style.display = 'block';
+                    updateGuestNameFields();
+                } else {
+                    guestDetails.style.display = 'none';
+                }
+            });
+        });
+
+        numGuestsSelect.addEventListener('change', updateGuestNameFields);
+
+        // Tyler Davis Easter Egg
+        const tylerQ1 = document.getElementById('tyler-q1');
+        const tylerQ2 = document.getElementById('tyler-q2');
+        const tylerDenied = document.getElementById('tyler-denied');
+        const submitBtn = document.querySelector('.submit-btn');
+        let tylerDetected = false;
+
+        function checkForTyler() {
+            const firstName = document.getElementById('first-name').value.trim().toLowerCase();
+            const lastName = document.getElementById('last-name').value.trim().toLowerCase();
+            const fullName = `${firstName} ${lastName}`;
+
+            // Check main name
+            if (fullName.includes('tyler') && fullName.includes('davis')) {
+                return true;
+            }
+
+            // Check additional guest names
+            const guestInputs = guestNamesContainer.querySelectorAll('input[type="text"]');
+            for (const input of guestInputs) {
+                if (input.value.toLowerCase().includes('tyler') && input.value.toLowerCase().includes('davis')) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function updateTylerState() {
+            const isTyler = checkForTyler();
+
+            if (isTyler && !tylerDetected) {
+                tylerDetected = true;
+                tylerQ1.style.display = 'block';
+                tylerQ2.style.display = 'none';
+                tylerDenied.style.display = 'none';
+                // Reset Tyler questions
+                document.querySelectorAll('input[name="tyler-q1"]').forEach(r => r.checked = false);
+                document.querySelectorAll('input[name="tyler-q2"]').forEach(r => r.checked = false);
+            } else if (!isTyler && tylerDetected) {
+                tylerDetected = false;
+                tylerQ1.style.display = 'none';
+                tylerQ2.style.display = 'none';
+                tylerDenied.style.display = 'none';
+            }
+        }
+
+        // Listen for Tyler Q1 answer
+        document.querySelectorAll('input[name="tyler-q1"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'yes') {
+                    tylerQ2.style.display = 'block';
+                } else {
+                    tylerQ2.style.display = 'none';
+                    document.querySelectorAll('input[name="tyler-q2"]').forEach(r => r.checked = false);
+                }
+                updateSubmitButtonAll();
+            });
+        });
+
+        // Listen for Tyler Q2 answer
+        document.querySelectorAll('input[name="tyler-q2"]').forEach(radio => {
+            radio.addEventListener('change', updateSubmitButtonAll);
+        });
+
+        // Dakota McAfee Easter Egg
+        const dakotaQ1 = document.getElementById('dakota-q1');
+        const dakotaQ2 = document.getElementById('dakota-q2');
+        const dakotaDeniedQ1 = document.getElementById('dakota-denied-q1');
+        const dakotaDeniedQ2 = document.getElementById('dakota-denied-q2');
+        let dakotaDetected = false;
+
+        function checkForDakota() {
+            const firstName = document.getElementById('first-name').value.trim().toLowerCase();
+            const lastName = document.getElementById('last-name').value.trim().toLowerCase();
+            const fullName = `${firstName} ${lastName}`;
+
+            // Check main name
+            if (fullName.includes('dakota') && fullName.includes('mcafee')) {
+                return true;
+            }
+
+            // Check additional guest names
+            const guestInputs = guestNamesContainer.querySelectorAll('input[type="text"]');
+            for (const input of guestInputs) {
+                if (input.value.toLowerCase().includes('dakota') && input.value.toLowerCase().includes('mcafee')) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function updateDakotaState() {
+            const isDakota = checkForDakota();
+
+            if (isDakota && !dakotaDetected) {
+                dakotaDetected = true;
+                dakotaQ1.style.display = 'block';
+                dakotaQ2.style.display = 'none';
+                dakotaDenied.style.display = 'none';
+                // Reset Dakota questions
+                document.querySelectorAll('input[name="dakota-q1"]').forEach(r => r.checked = false);
+                document.querySelectorAll('input[name="dakota-q2"]').forEach(r => r.checked = false);
+            } else if (!isDakota && dakotaDetected) {
+                dakotaDetected = false;
+                dakotaQ1.style.display = 'none';
+                dakotaQ2.style.display = 'none';
+                dakotaDeniedQ1.style.display = 'none';
+                dakotaDeniedQ2.style.display = 'none';
+            }
+
+            updateSubmitButtonAll();
+        }
+
+        // Listen for Dakota Q1 answer
+        document.querySelectorAll('input[name="dakota-q1"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'yes') {
+                    dakotaQ2.style.display = 'block';
+                } else {
+                    dakotaQ2.style.display = 'none';
+                    document.querySelectorAll('input[name="dakota-q2"]').forEach(r => r.checked = false);
+                }
+                updateSubmitButtonAll();
+            });
+        });
+
+        // Listen for Dakota Q2 answer
+        document.querySelectorAll('input[name="dakota-q2"]').forEach(radio => {
+            radio.addEventListener('change', updateSubmitButtonAll);
+        });
+
+        // Combined submit button update for all easter eggs
+        function updateSubmitButtonAll() {
+            let canSubmit = true;
+            let showDenied = null;
+
+            // Check Tyler
+            if (tylerDetected) {
+                const q1Answer = document.querySelector('input[name="tyler-q1"]:checked')?.value;
+                const q2Answer = document.querySelector('input[name="tyler-q2"]:checked')?.value;
+
+                if (q1Answer === 'no' || q2Answer === 'no') {
+                    canSubmit = false;
+                    showDenied = 'tyler';
+                } else if (!(q1Answer === 'yes' && q2Answer === 'yes')) {
+                    canSubmit = false;
+                }
+            }
+
+            // Check Dakota
+            if (dakotaDetected) {
+                const q1Answer = document.querySelector('input[name="dakota-q1"]:checked')?.value;
+                const q2Answer = document.querySelector('input[name="dakota-q2"]:checked')?.value;
+
+                if (q1Answer === 'no') {
+                    canSubmit = false;
+                    showDenied = 'dakota-q1';
+                } else if (q2Answer === 'no') {
+                    canSubmit = false;
+                    showDenied = 'dakota-q2';
+                } else if (!(q1Answer === 'yes' && q2Answer === 'yes')) {
+                    canSubmit = false;
+                }
+            }
+
+            // Update UI
+            tylerDenied.style.display = showDenied === 'tyler' ? 'block' : 'none';
+            dakotaDeniedQ1.style.display = showDenied === 'dakota-q1' ? 'block' : 'none';
+            dakotaDeniedQ2.style.display = showDenied === 'dakota-q2' ? 'block' : 'none';
+
+            if (showDenied) {
+                submitBtn.style.display = 'none';
+            } else {
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = !canSubmit;
+            }
+        }
+
+        // Check for easter eggs on name field changes
+        function updateAllEasterEggs() {
+            updateTylerState();
+            updateDakotaState();
+        }
+
+        document.getElementById('first-name').addEventListener('input', updateAllEasterEggs);
+        document.getElementById('last-name').addEventListener('input', updateAllEasterEggs);
+
+        // Also check when guest names change (using event delegation)
+        guestNamesContainer.addEventListener('input', updateAllEasterEggs);
+
+        // Send email notifications
+        async function sendAfterpartyEmails(data, isTyler, isDakota) {
+            try {
+                // Build guest list string
+                let guestList = data.firstName + ' ' + data.lastName;
+                if (data.additionalGuests && data.additionalGuests.length > 0) {
+                    guestList += ', ' + data.additionalGuests.join(', ');
+                }
+
+                // Easter egg flags for notification
+                let easterEggNote = '';
+                if (isTyler) easterEggNote += '<p><strong>🌈 Easter Egg:</strong> Confirmed sexy internet boy enthusiast</p>';
+                if (isDakota) easterEggNote += '<p><strong>🍑 Easter Egg:</strong> Confirmed spoonless ass eater</p>';
+
+                // Send notification to you
+                await db.collection('mail').add({
+                    to: 'dustin.mcafee@my.maryvillecollege.edu',
+                    message: {
+                        subject: `🎉 After-Party RSVP: ${data.firstName} ${data.lastName}`,
+                        html: `
+                            <div style="background: #0a0a0f; padding: 40px 20px; font-family: Arial, sans-serif;">
+                                <div style="max-width: 500px; margin: 0 auto; background: linear-gradient(135deg, rgba(255,0,128,0.1), rgba(0,255,255,0.1)); border: 1px solid #ff0080; border-radius: 8px; padding: 30px;">
+                                    <h1 style="color: #ff0080; font-size: 24px; margin: 0 0 20px 0; text-align: center; text-transform: uppercase; letter-spacing: 3px;">After-Party RSVP</h1>
+
+                                    <div style="background: rgba(255,255,255,0.05); border-radius: 6px; padding: 20px; margin-bottom: 20px;">
+                                        <p style="color: #00ffff; margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Name</p>
+                                        <p style="color: #ffffff; margin: 0 0 20px 0; font-size: 18px;">${data.firstName} ${data.lastName}</p>
+
+                                        <p style="color: #00ffff; margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Email</p>
+                                        <p style="color: #ffffff; margin: 0 0 20px 0; font-size: 18px;">${data.email}</p>
+
+                                        <p style="color: #00ffff; margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Attending</p>
+                                        <p style="color: ${data.attending === 'yes' ? '#00ff80' : '#ff0050'}; margin: 0; font-size: 18px; font-weight: bold;">${data.attending === 'yes' ? '✓ YES' : '✗ NO'}</p>
+                                    </div>
+
+                                    ${data.attending === 'yes' ? `
+                                    <div style="background: rgba(0,255,255,0.1); border: 1px solid rgba(0,255,255,0.3); border-radius: 6px; padding: 20px; margin-bottom: 20px;">
+                                        <p style="color: #00ffff; margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Total Ravers</p>
+                                        <p style="color: #ffffff; margin: 0 0 20px 0; font-size: 24px; font-weight: bold;">${data.totalGuests}</p>
+
+                                        <p style="color: #00ffff; margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Crew List</p>
+                                        <p style="color: #ffffff; margin: 0; font-size: 16px;">${guestList}</p>
+                                    </div>
+                                    ` : ''}
+
+                                    ${easterEggNote ? `
+                                    <div style="background: rgba(255,0,128,0.2); border: 1px solid #ff0080; border-radius: 6px; padding: 15px; margin-bottom: 20px;">
+                                        ${isTyler ? '<p style="color: #ff0080; margin: 0 0 5px 0; font-size: 14px;">🌈 Confirmed sexy internet boy enthusiast</p>' : ''}
+                                        ${isDakota ? '<p style="color: #ff0080; margin: 0; font-size: 14px;">🍑 Confirmed spoonless ass eater</p>' : ''}
+                                    </div>
+                                    ` : ''}
+
+                                    <p style="color: #666; font-size: 12px; text-align: center; margin: 0;">${new Date(data.timestamp).toLocaleString()}</p>
+                                </div>
+                            </div>
+                        `
+                    }
+                });
+
+                // Send confirmation to guest
+                const attendingHtml = `
+                    <div style="background: #0a0a0f; padding: 40px 20px; font-family: Arial, sans-serif;">
+                        <div style="max-width: 500px; margin: 0 auto;">
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <p style="color: #ff0080; font-size: 12px; text-transform: uppercase; letter-spacing: 4px; margin: 0 0 10px 0; border: 1px solid #ff0080; display: inline-block; padding: 5px 15px;">Top Secret</p>
+                                <h1 style="color: #ffffff; font-size: 36px; margin: 20px 0 10px 0; text-transform: uppercase; letter-spacing: 2px;">You're In</h1>
+                                <p style="color: #00ffff; font-size: 14px; text-transform: uppercase; letter-spacing: 3px; margin: 0;">Clean-Up Crew Confirmed</p>
+                            </div>
+
+                            <div style="background: linear-gradient(135deg, rgba(255,0,128,0.1), rgba(128,0,255,0.1)); border: 1px solid rgba(255,0,128,0.3); border-radius: 8px; padding: 25px; margin-bottom: 25px;">
+                                <p style="color: #ffffff; font-size: 16px; line-height: 1.8; margin: 0 0 15px 0;">Hey ${data.firstName},</p>
+                                <p style="color: #cccccc; font-size: 16px; line-height: 1.8; margin: 0;">You're officially on the <span style="color: #ff0080; font-weight: bold;">clean-up crew</span>. 😉</p>
+                            </div>
+
+                            <div style="background: rgba(0,255,255,0.05); border: 1px solid rgba(0,255,255,0.2); border-radius: 8px; padding: 25px; margin-bottom: 25px;">
+                                <h2 style="color: #00ffff; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 15px 0;">The Plan</h2>
+                                <p style="color: #cccccc; font-size: 15px; line-height: 1.8; margin: 0;">When the reception ends and we start ushering people out, <strong style="color: #ffffff;">you stay put</strong>. Once the coast is clear, we drop the bass.</p>
+                            </div>
+
+                            <div style="background: rgba(128,0,255,0.1); border: 1px solid rgba(128,0,255,0.3); border-radius: 8px; padding: 25px; margin-bottom: 25px;">
+                                <h2 style="color: #8000ff; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 15px 0;">Your Crew</h2>
+                                <p style="color: #ffffff; font-size: 16px; margin: 0;">${guestList}</p>
+                            </div>
+
+                            <div style="text-align: center; padding: 20px; border: 1px solid #ff0080; border-radius: 8px; background: rgba(255,0,128,0.1);">
+                                <p style="color: #ff0080; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin: 0;">🤫 Keep This Secret</p>
+                            </div>
+
+                            <p style="color: #666666; font-size: 14px; text-align: center; margin: 30px 0 0 0;">See you on the dance floor.<br><span style="color: #888888;">- Dustin & Sarah</span></p>
+                        </div>
+                    </div>
+                `;
+
+                const notAttendingHtml = `
+                    <div style="background: #0a0a0f; padding: 40px 20px; font-family: Arial, sans-serif;">
+                        <div style="max-width: 500px; margin: 0 auto; text-align: center;">
+                            <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 20px 0;">RSVP Received</h1>
+
+                            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 30px; margin-bottom: 25px;">
+                                <p style="color: #ffffff; font-size: 16px; line-height: 1.8; margin: 0 0 15px 0;">Hey ${data.firstName},</p>
+                                <p style="color: #cccccc; font-size: 16px; line-height: 1.8; margin: 0;">Thanks for letting us know you can't make it to the after-party.</p>
+                                <p style="color: #888888; font-size: 16px; line-height: 1.8; margin: 15px 0 0 0;">We'll miss you on the dance floor! 💜</p>
+                            </div>
+
+                            <p style="color: #666666; font-size: 14px; margin: 0;">- Dustin & Sarah</p>
+                        </div>
+                    </div>
+                `;
+
+                await db.collection('mail').add({
+                    to: data.email,
+                    from: 'dustin.mcafee@my.maryvillecollege.edu',
+                    replyTo: 'dustin.mcafee@my.maryvillecollege.edu',
+                    message: {
+                        subject: data.attending === 'yes'
+                            ? '🤫 You\'re on the Clean-Up Crew'
+                            : 'After-Party RSVP Received',
+                        html: data.attending === 'yes' ? attendingHtml : notAttendingHtml
+                    }
+                });
+            } catch (error) {
+                console.error('Error sending email notification:', error);
+            }
+        }
+
+        // Form submission
+        document.getElementById('afterparty-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formMessage = document.getElementById('form-message');
+            const submitBtn = this.querySelector('.submit-btn');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const attending = document.querySelector('input[name="attending"]:checked').value;
+
+            // Collect additional guest names
+            const additionalGuests = [];
+            if (attending === 'yes') {
+                const count = parseInt(document.getElementById('num-guests').value);
+                for (let i = 1; i <= count; i++) {
+                    const name = document.getElementById(`guest-${i}`).value.trim();
+                    if (name) additionalGuests.push(name);
+                }
+            }
+
+            const data = {
+                firstName: document.getElementById('first-name').value.trim(),
+                lastName: document.getElementById('last-name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                attending: attending,
+                totalGuests: attending === 'yes' ? 1 + additionalGuests.length : 0,
+                additionalGuests: additionalGuests,
+                timestamp: new Date().toISOString()
+            };
+
+            // Add easter egg confirmations to database
+            if (tylerDetected) {
+                data.confirmedSexyInternetBoyEnthusiast = true;
+            }
+            if (dakotaDetected) {
+                data.confirmedSpoonlessAssEater = true;
+            }
+
+            try {
+                await db.collection('afterparty-rsvps').add(data);
+
+                // Send email notifications
+                await sendAfterpartyEmails(data, tylerDetected, dakotaDetected);
+
+                let successMsg = attending === 'yes' ? 'See you on the dance floor.' : 'No worries. Thanks for letting us know.';
+                if (tylerDetected && attending === 'yes') {
+                    successMsg = 'See you on the dance floor, you sexy internet boy enthusiast.';
+                }
+                if (dakotaDetected && attending === 'yes') {
+                    successMsg = 'See you on the dance floor. Bring your appetite.';
+                }
+                formMessage.textContent = successMsg;
+                formMessage.className = 'form-message success';
+                formMessage.style.display = 'block';
+
+                this.reset();
+                guestDetails.style.display = 'none';
+
+                // Reset easter egg states
+                tylerDetected = false;
+                tylerQ1.style.display = 'none';
+                tylerQ2.style.display = 'none';
+                tylerDenied.style.display = 'none';
+                dakotaDetected = false;
+                dakotaQ1.style.display = 'none';
+                dakotaQ2.style.display = 'none';
+                dakotaDeniedQ1.style.display = 'none';
+                dakotaDeniedQ2.style.display = 'none';
+
+            } catch (error) {
+                console.error('Error:', error);
+                formMessage.textContent = 'Something went wrong. Try again.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit';
+        });
+    </script>
+</body>
+</html>
