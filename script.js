@@ -325,7 +325,7 @@ async function sendAfterPartyInvitation(data) {
         <div style="background: rgba(255, 0, 128, 0.1); border: 1px solid rgba(255, 0, 128, 0.3); border-radius: 8px; padding: 30px; margin: 0 0 30px 0; text-align: left;">
             <p style="color: #ff0080; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 15px 0; font-weight: bold;">The Cover Story</p>
             <p style="color: #cccccc; font-size: 16px; line-height: 1.8; margin: 0;">
-                When the reception ends at <strong style="color: #ffffff;">9:00 PM</strong>, we'll start ushering guests out. You're on the <span style="color: #ff0080; font-weight: bold;">"clean-up crew"</span> — that's your reason to stay behind.
+                When the reception ends at <strong style="color: #ffffff;">8:00 PM</strong>, we'll start ushering guests out. You're on the <span style="color: #ff0080; font-weight: bold;">"clean-up crew"</span> — that's your reason to stay behind.
             </p>
         </div>
 
@@ -334,7 +334,7 @@ async function sendAfterPartyInvitation(data) {
             <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                     <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <span style="color: #ff0080; font-size: 13px; font-weight: bold;">9:00 PM</span>
+                        <span style="color: #ff0080; font-size: 13px; font-weight: bold;">8:00 PM</span>
                     </td>
                     <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: right;">
                         <span style="color: #ffffff; font-size: 15px;">Guests Leave</span>
@@ -342,7 +342,7 @@ async function sendAfterPartyInvitation(data) {
                 </tr>
                 <tr>
                     <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <span style="color: #8000ff; font-size: 13px; font-weight: bold;">9:00 - 9:30 PM</span>
+                        <span style="color: #8000ff; font-size: 13px; font-weight: bold;">8:00 - 8:30 PM</span>
                     </td>
                     <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: right;">
                         <span style="color: #ffffff; font-size: 15px;">"Clean-Up"</span>
@@ -350,7 +350,7 @@ async function sendAfterPartyInvitation(data) {
                 </tr>
                 <tr>
                     <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <span style="color: #00ffff; font-size: 13px; font-weight: bold;">9:30 - 11:00 PM</span>
+                        <span style="color: #00ffff; font-size: 13px; font-weight: bold;">8:30 - 11:00 PM</span>
                     </td>
                     <td style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: right;">
                         <span style="color: #00ffff; font-size: 15px; font-weight: bold;">THE RAVE</span>
